@@ -376,7 +376,6 @@
             font-size: 12px;
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 16px;
         }
@@ -401,7 +400,6 @@
     </style>
 </head>
 <body>
-    <!-- Boot Screen -->
     <div class="boot-screen">
         <div class="boot-logo">Windows 95</div>
         <div class="boot-progress">
@@ -412,7 +410,6 @@
         <div class="boot-copyright">© 2025 Meu Portfolio Retro</div>
     </div>
 
-    <!-- Desktop Icons -->
     <div class="desktop-icon" style="top: 20px; left: 20px;" onclick="openWindow('about')">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABzSURBVDhP7dKxDcAgDABRZ4j+00eG8BQZgikYgRGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBG+5wG3dQY3q8w9JAAAAABJRU5ErkJggg==" alt="About Me">
         <span>Sobre Mim</span>
@@ -426,7 +423,6 @@
         <span>Contato</span>
     </div>
 
-    <!-- Windows -->
     <div class="window" id="about-window" style="top: 100px; left: 200px; width: 500px; height: 400px;">
         <div class="window-header">
             <div class="window-title">About Me</div>
@@ -562,7 +558,6 @@
         </div>
     </div>
 
-    <!-- Taskbar -->
     <div class="taskbar">
         <button class="start-btn" id="start-btn">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABzSURBVDhP7dKxDcAgDABRZ4j+00eG8BQZgikYgRGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBG+5wG3dQY3q8w9JAAAAABJRU5ErkJggg==" alt="Start">
@@ -587,7 +582,6 @@
         <div class="clock" id="clock">10:41 AM</div>
     </div>
 
-    <!-- Start Menu -->
     <div class="menu" id="start-menu">
         <div class="menu-item" onclick="openWindow('about')">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABzSURBVDhP7dKxDcAgDABRZ4j+00eG8BQZgikYgRGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBGYgBG+5wG3dQY3q8w9JAAAAABJRU5ErkJggg==" alt="About" class="mr-2">
@@ -614,9 +608,7 @@
     </div>
 
     <script>
-        // Boot animation
         document.addEventListener('DOMContentLoaded', function() {
-            // Simulate boot process
             let progress = 0;
             const bootInterval = setInterval(function() {
                 progress += 5;
@@ -651,13 +643,12 @@
             const ampm = hours >= 12 ? 'PM' : 'AM';
             
             hours = hours % 12;
-            hours = hours ? hours : 12; // Convert 0 to 12
+            hours = hours ? hours : 12;
             
             const timeString = `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
             document.getElementById('clock').textContent = timeString;
         }
-        
-        // Window management
+
         function openWindow(windowId) {
             const window = document.getElementById(`${windowId}-window`);
             const taskbarItem = document.getElementById(`${windowId}-taskbar`);
@@ -702,43 +693,36 @@
         function focusWindow(windowId) {
             const window = document.getElementById(`${windowId}-window`);
             const taskbarItem = document.getElementById(`${windowId}-taskbar`);
-            
-            // Remove active class from all windows
+
             document.querySelectorAll('.window').forEach(w => {
                 w.classList.remove('active');
             });
             
-            // Remove active class from all taskbar items
             document.querySelectorAll('.taskbar-item').forEach(item => {
                 item.classList.remove('active');
             });
             
-            // Add active class to focused window and taskbar item
+
             window.classList.add('active');
             taskbarItem.classList.add('active');
             
-            // Bring window to front
             window.style.zIndex = '100';
         }
         
-        // Start menu toggle
         document.getElementById('start-btn').addEventListener('click', function(e) {
             e.stopPropagation();
             const menu = document.getElementById('start-menu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         });
         
-        // Close menu when clicking elsewhere
         document.addEventListener('click', function() {
             document.getElementById('start-menu').style.display = 'none';
         });
         
-        // Prevent menu from closing when clicking inside it
         document.getElementById('start-menu').addEventListener('click', function(e) {
             e.stopPropagation();
         });
         
-        // Make windows draggable
         function initDraggableWindows() {
             const windows = document.querySelectorAll('.window');
             
@@ -752,7 +736,6 @@
                     offsetX = e.clientX - window.getBoundingClientRect().left;
                     offsetY = e.clientY - window.getBoundingClientRect().top;
                     
-                    // Bring window to front
                     focusWindow(window.id.split('-')[0]);
                 });
                 
@@ -772,14 +755,12 @@
             });
         }
         
-        // Submenu hover effects
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('mouseenter', function() {
                 const submenu = this.querySelector('.submenu');
                 if (submenu) {
                     submenu.style.display = 'block';
                     
-                    // Position submenu properly
                     const rect = this.getBoundingClientRect();
                     submenu.style.top = `${rect.top - 40}px`;
                 }
