@@ -38,7 +38,7 @@
             background-color: var(--win-gray);
             box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
             min-width: 300px;
-            display: none; /* Hidden by default */
+            display: none;
             flex-direction: column;
         }
 
@@ -108,7 +108,7 @@
             margin: 2px;
         }
         
-        /* --- Taskbar and Desktop --- */
+        /* --- Taskbar e Desktop --- */
         .taskbar {
             position: fixed;
             bottom: 0;
@@ -207,7 +207,7 @@
         .menu-item:hover { background-color: var(--win-blue); color: white; }
         .menu-separator { height: 2px; background-color: var(--win-dark-gray); border-bottom: 2px solid var(--win-white); margin: 4px 0; }
 
-        /* Progress Bar & Buttons */
+        /* Barra de Progresso e Botões */
         .progress-bar {
             height: 20px;
             background-color: var(--win-white);
@@ -281,13 +281,13 @@
                 box-shadow: none;
             }
             .window-header {
-                cursor: default; /* No dragging on mobile */
+                cursor: default; /* Não é possível arrastar no celular */
             }
-            .window-controls .window-btn:nth-child(2) { /* Hide maximize button */
+            .window-controls .window-btn:nth-child(2) { /* Ocultar botão maximizar */
                 display: none;
             }
             .taskbar-items {
-                display: none; /* Simplify taskbar on mobile */
+                display: none; /* Simplifique a barra de tarefas no celular */
             }
         }
     </style>
@@ -304,7 +304,7 @@
     </div>
     
     <main id="desktop">
-        <!-- Desktop Icons -->
+        <!-- Desktop Icones -->
         <button class="desktop-icon" style="top: 20px; left: 20px;" data-window-id="about">
             <img src="ChatGPT Image 11 de jul. de 2025, 13_21_24.png" alt="">
             <span>Sobre Mim</span>
@@ -500,7 +500,7 @@
                 }
             }, 150);
 
-            // --- Clock ---
+            // --- Relogio ---
             const clockElement = document.getElementById('clock');
             function updateClock() {
                 const now = new Date();
@@ -510,17 +510,17 @@
             updateClock();
             setInterval(updateClock, 60000);
 
-            // --- Window Management ---
+            // --- Window Gerenciamento ---
             function focusWindow(windowId) {
                 if (state.activeWindow === windowId) return;
 
-                // Deactivate previous window
+                // Desativar anterior window
                 if (state.activeWindow) {
                     state.windows[state.activeWindow]?.element.classList.remove('active');
                     state.windows[state.activeWindow]?.taskbarItem.classList.remove('active');
                 }
                 
-                // Activate new window
+                // Ative novo window
                 state.activeWindow = windowId;
                 const win = state.windows[windowId];
                 if (!win) return;
@@ -557,7 +557,7 @@
             }
 
             function toggleMaximizeWindow(windowId) {
-                if (window.innerWidth < 768) return; // Disabled on mobile
+                if (window.innerWidth < 768) return; // Desativado no mobile
                 const win = state.windows[windowId];
                 if (win.isMaximized) {
                     // Restore
@@ -579,11 +579,11 @@
                 win.isMaximized = !win.isMaximized;
             }
 
-            // --- Initialization ---
+            // --- Inicialização ---
             document.querySelectorAll('.window').forEach(winEl => {
                 const windowId = winEl.id.replace('-window', '');
                 
-                // Create taskbar item dynamically
+                // Criar item da barra de tarefas dinamicamente
                 const taskbarItem = document.createElement('button');
                 taskbarItem.className = 'taskbar-item';
                 taskbarItem.id = `${windowId}-taskbar`;
@@ -598,7 +598,7 @@
                     originalRect: {}
                 };
 
-                // Add event listeners
+                // Adicionar ouvintes de eventos
                 winEl.addEventListener('mousedown', () => focusWindow(windowId));
                 taskbarItem.addEventListener('click', () => {
                     if (state.activeWindow === windowId) {
@@ -608,7 +608,7 @@
                     }
                 });
                 
-                // Window controls
+                // Window controles
                 winEl.querySelector('.window-controls').addEventListener('click', (e) => {
                     const action = e.target.closest('button')?.dataset.action;
                     if (action === 'close') closeWindow(windowId);
@@ -617,9 +617,9 @@
                 });
             });
 
-            // --- Draggable Windows (Desktop only) ---
+            // --- Janelas arrastáveis (somente para desktop) ---
             function initDraggableWindows() {
-                if (window.innerWidth < 768) return; // Don't run on mobile
+                if (window.innerWidth < 768) return; // Não corra no celular
 
                 document.querySelectorAll('.window').forEach(winEl => {
                     const header = winEl.querySelector('.window-header');
@@ -653,8 +653,8 @@
                     header.addEventListener('mousedown', onMouseDown);
                 });
             }
-            initDraggableWindows(); // Initial call
-            window.addEventListener('resize', initDraggableWindows); // Re-check on resize
+            initDraggableWindows(); // Chamada inicial
+            window.addEventListener('resize', initDraggableWindows); // Verifique novamente o redimensionamento
 
             // --- Start Menu ---
             const startBtn = document.getElementById('start-btn');
@@ -672,7 +672,7 @@
             });
             document.addEventListener('click', () => startMenu.style.display = 'none');
 
-            // --- Desktop Icons ---
+            // --- Desktop Icones ---
             desktop.querySelectorAll('.desktop-icon').forEach(icon => {
                 icon.addEventListener('click', () => openWindow(icon.dataset.windowId));
             });
